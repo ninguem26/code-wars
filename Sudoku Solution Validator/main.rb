@@ -1,7 +1,21 @@
 # frozen_string_literal: true
 
 def valid_solution(board)
-  [false, true].sample
+  board.each do |a|
+    return false if a.uniq.size < 9 || a.include?(0)
+  end
+
+  for i in 0..2 do
+    for j in 0..2 do
+      return false if check_sub_board(board, i, j) < 9
+    end
+  end
+
+  board.transpose.each do |a|
+    return false if a.uniq.size < 9
+  end
+
+  true
 end
 
 def check_sub_board(board, x, y)
